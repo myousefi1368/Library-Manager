@@ -1,0 +1,3 @@
+PyQt6>=6.6.0
+qt-material>=2.14
+jdatetime>=4.1.1
