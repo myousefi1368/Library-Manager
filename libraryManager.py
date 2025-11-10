@@ -2,13 +2,12 @@
 import sys, os, json, datetime
 from typing import List, Dict
 
-# External libs
-try:
-    import jdatetime
-except Exception as e:
-    raise RuntimeError("Missing dependency 'jdatetime'. Install: pip install jdatetime") from e
-
+# External libs - IMPORTANT: Import jdatetime directly for PyInstaller
+import jdatetime
 from PyQt6 import QtWidgets, QtCore, QtGui
+#from PySide6 import QtWidgets, QtCore, QtGui
+
+# Keep the try/except for qt_material only
 try:
     from qt_material import apply_stylesheet
     QT_MATERIAL_AVAILABLE = True
