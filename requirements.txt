@@ -1,4 +1,4 @@
-PyQt6>=6.5.0
+pyqt6>=6.4.0,<6.5.0
 jdatetime>=4.1.0
 qt-material>=2.14
 pyinstaller>=5.13.0

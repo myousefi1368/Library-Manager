@@ -2,9 +2,21 @@
 import sys, os, json, datetime
 from typing import List, Dict
 
+if hasattr(sys, '_MEIPASS'):
+    # PyInstaller bundle
+    os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = os.path.join(sys._MEIPASS, 'PyQt6', 'Qt6', 'plugins')
+    
+if sys.platform == "win32":
+    # Add current directory to DLL search path
+    os.environ['PATH'] = os.path.dirname(os.path.abspath(__file__)) + os.pathsep + os.environ['PATH']
+
 # External libs - IMPORTANT: Import jdatetime directly for PyInstaller
 import jdatetime
+#from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt6 import QtWidgets, QtCore, QtGui
+from PyQt6.QtGui import (
+    QFont, QFontInfo, QIcon
+)
 #from PySide6 import QtWidgets, QtCore, QtGui
 
 # Keep the try/except for qt_material only
@@ -1698,11 +1710,17 @@ class LibraryApp(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     # Provide a Persian-friendly default font if available
-    font = QtGui.QFont("Vazirmatn", 10)
-    if not QtGui.QFontInfo(font).family():
-        font = QtGui.QFont("Tahoma", 10)
+    font = QFont("Vazirmatn", 10)
+    if not QFontInfo(font).family():
+        font = QFont("Tahoma", 10)
     app.setFont(font)
+    icon_path = os.path.join(
+        getattr(sys, "_MEIPASS", os.path.dirname(__file__)),
+        "icon.ico"
+    )
+    app.setWindowIcon(QIcon(icon_path))
 
     win = LibraryApp()
+    win.setWindowIcon(QIcon(icon_path))
     win.show()
     sys.exit(app.exec())

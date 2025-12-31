@@ -27,7 +27,9 @@ Thumbs.db
 
 # mine
 backup/
-builds/library_build_20251201_214327/VC_redist.x64.exe
-VC_redist.x64.exe
 libraryManager.zip
 libraryManager.rar
+gen_data.py
+gen_data2.py
+library_data.json
+csv_to_json.py

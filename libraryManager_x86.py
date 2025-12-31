@@ -5,8 +5,9 @@ from typing import List, Dict
 # External libs - IMPORTANT: Import jdatetime directly for PyInstaller
 import jdatetime
 from PyQt5 import QtWidgets, QtCore, QtGui
-#from PySide6 import QtWidgets, QtCore, QtGui
-
+from PyQt5.QtGui import (
+    QFont, QFontInfo, QIcon
+)
 # Keep the try/except for qt_material only
 try:
     from qt_material import apply_stylesheet
@@ -1698,11 +1699,17 @@ class LibraryApp(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     # Provide a Persian-friendly default font if available
-    font = QtGui.QFont("Vazirmatn", 10)
-    if not QtGui.QFontInfo(font).family():
-        font = QtGui.QFont("Tahoma", 10)
+    font = QFont("Vazirmatn", 10)
+    if not QFontInfo(font).family():
+        font = QFont("Tahoma", 10)
     app.setFont(font)
+    icon_path = os.path.join(
+        getattr(sys, "_MEIPASS", os.path.dirname(__file__)),
+        "icon.ico"
+    )
+    app.setWindowIcon(QIcon(icon_path))
 
     win = LibraryApp()
+    win.setWindowIcon(QIcon(icon_path))
     win.show()
     sys.exit(app.exec())
